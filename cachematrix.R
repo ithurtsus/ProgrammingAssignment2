@@ -50,20 +50,17 @@ makeCacheMatrix <- function(x = matrix()) {
 ## For this assignment, assume that the matrix supplied is always
 ## invertible.
 cacheSolve <- function(x, ...) {
-  # check presolved
-  checkInverse <- x$getInverse()
-  if(!is.null(checkInverse)) {
-    # return inverse
-    return(checkInverse)
+  # get cached inverse
+  inverse <- x$getInverse()
+  if(is.null(inverse)) {
+    # not yet solved
+    data <- x$get()
+    
+    # these extras are meaningful?
+    inverse <- solve(data, ...)
+    x$setInverse(inverse)
   }
   
-  # not solved
-  data <- x$get()
-  
-  # these extras are meaningful?
-  newInverse <- solve(data, ...)
-  x$setInverse(newInverse)
-  
-  # return inverse same as if presolved
-  newInverse
+  # single workflow solution to return inverse
+  inverse
 }
