@@ -51,19 +51,19 @@ makeCacheMatrix <- function(x = matrix()) {
 ## invertible.
 cacheSolve <- function(x, ...) {
   # check presolved
-  checkinv <- x$getInverse()
-  if(!is.null(checkinv)) {
+  checkInverse <- x$getInverse()
+  if(!is.null(checkInverse)) {
     # return inverse
-    return(checkinv)
+    return(checkInverse)
   }
   
   # not solved
   data <- x$get()
   
   # these extras are meaningful?
-  new_inverse <- solve(data, ...)
-  x$setInverse(new_inverse)
+  newInverse <- solve(data, ...)
+  x$setInverse(newInverse)
   
   # return inverse same as if presolved
-  new_inverse
+  newInverse
 }
